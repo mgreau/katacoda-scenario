@@ -81,5 +81,5 @@ spec:
     app: elasticsearch
   ports:
   - port: 9200
-    nodePort: 9200
+    nodePort: 30200
     name: http
