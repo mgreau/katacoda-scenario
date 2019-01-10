@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+# Deploy kube-state-metrics
+kubectl apply -f  https://raw.githubusercontent.com/mgreau/katacoda-scenarios/master/knative-pipeline-elastic-stack/assets/k8s/kube-state-metrics.yaml
+
 # Download Elastic docker images
 TAG=6.5.4
 docker pull docker.elastic.co/elasticsearch/elasticsearch:${TAG}

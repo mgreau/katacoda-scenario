@@ -1,0 +1,366 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: knative-build-pipeline
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: knative-build-pipeline-admin
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - namespaces
+  - secrets
+  - events
+  - serviceaccounts
+  - configmaps
+  - persistentvolumeclaims
+  verbs:
+  - get
+  - list
+  - create
+  - update
+  - delete
+  - patch
+  - watch
+- apiGroups:
+  - extensions
+  resources:
+  - deployments
+  verbs:
+  - get
+  - list
+  - create
+  - update
+  - delete
+  - patch
+  - watch
+- apiGroups:
+  - admissionregistration.k8s.io
+  resources:
+  - mutatingwebhookconfigurations
+  verbs:
+  - get
+  - list
+  - create
+  - update
+  - delete
+  - patch
+  - watch
+- apiGroups:
+  - apiextensions.k8s.io
+  resources:
+  - customresourcedefinitions
+  verbs:
+  - get
+  - list
+  - create
+  - update
+  - delete
+  - patch
+  - watch
+- apiGroups:
+  - pipeline.knative.dev
+  resources:
+  - tasks
+  - clustertasks
+  - taskruns
+  - pipelines
+  - pipelineruns
+  - pipelineresources
+  verbs:
+  - get
+  - list
+  - create
+  - update
+  - delete
+  - patch
+  - watch
+- apiGroups:
+  - build.knative.dev
+  resources:
+  - builds
+  - buildtemplates
+  - clusterbuildtemplates
+  verbs:
+  - get
+  - list
+  - create
+  - update
+  - delete
+  - patch
+  - watch
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: build-pipeline-controller
+  namespace: knative-build-pipeline
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: build-pipeline-controller-admin
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: knative-build-pipeline-admin
+subjects:
+- kind: ServiceAccount
+  name: build-pipeline-controller
+  namespace: knative-build-pipeline
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: clustertasks.pipeline.knative.dev
+spec:
+  group: pipeline.knative.dev
+  names:
+    categories:
+    - all
+    - knative
+    - build-pipeline
+    kind: ClusterTask
+    plural: clustertasks
+  scope: Cluster
+  version: v1alpha1
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: images.caching.internal.knative.dev
+spec:
+  group: caching.internal.knative.dev
+  names:
+    categories:
+    - all
+    - knative-internal
+    - caching
+    kind: Image
+    plural: images
+    shortNames:
+    - img
+    singular: image
+  scope: Namespaced
+  version: v1alpha1
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: pipelines.pipeline.knative.dev
+spec:
+  group: pipeline.knative.dev
+  names:
+    categories:
+    - all
+    - knative
+    - build-pipeline
+    kind: Pipeline
+    plural: pipelines
+  scope: Namespaced
+  version: v1alpha1
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: pipelineruns.pipeline.knative.dev
+spec:
+  group: pipeline.knative.dev
+  names:
+    categories:
+    - all
+    - knative
+    - build-pipeline
+    kind: PipelineRun
+    plural: pipelineruns
+  scope: Namespaced
+  version: v1alpha1
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: pipelineresources.pipeline.knative.dev
+spec:
+  group: pipeline.knative.dev
+  names:
+    categories:
+    - all
+    - knative
+    - build-pipeline
+    kind: PipelineResource
+    plural: pipelineresources
+  scope: Namespaced
+  version: v1alpha1
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: tasks.pipeline.knative.dev
+spec:
+  group: pipeline.knative.dev
+  names:
+    categories:
+    - all
+    - knative
+    - build-pipeline
+    kind: Task
+    plural: tasks
+  scope: Namespaced
+  version: v1alpha1
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: taskruns.pipeline.knative.dev
+spec:
+  group: pipeline.knative.dev
+  names:
+    categories:
+    - all
+    - knative
+    - build-pipeline
+    kind: TaskRun
+    plural: taskruns
+  scope: Namespaced
+  version: v1alpha1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: build-pipeline-controller
+  name: build-pipeline-controller
+  namespace: knative-build-pipeline
+spec:
+  ports:
+  - name: metrics
+    port: 9090
+    protocol: TCP
+    targetPort: 9090
+  selector:
+    app: build-pipeline-controller
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: build-pipeline-webhook
+  name: build-pipeline-webhook
+  namespace: knative-build-pipeline
+spec:
+  ports:
+  - port: 443
+    targetPort: 443
+  selector:
+    app: build-pipeline-webhook
+---
+apiVersion: v1
+data:
+  image: gcr.io/k8s-prow/entrypoint@sha256:7c7cd8906ce4982ffee326218e9fc75da2d4896d53cabc9833b9cc8d2d6b2b8f
+kind: ConfigMap
+metadata:
+  name: config-entrypoint
+  namespace: knative-build-pipeline
+---
+apiVersion: v1
+data:
+  loglevel.controller: info
+  loglevel.webhook: info
+  zap-logger-config: |
+    {
+      "level": "info",
+      "development": false,
+      "sampling": {
+        "initial": 100,
+        "thereafter": 100
+      },
+      "outputPaths": ["stdout"],
+      "errorOutputPaths": ["stderr"],
+      "encoding": "json",
+      "encoderConfig": {
+        "timeKey": "",
+        "levelKey": "level",
+        "nameKey": "logger",
+        "callerKey": "caller",
+        "messageKey": "msg",
+        "stacktraceKey": "stacktrace",
+        "lineEnding": "",
+        "levelEncoder": "",
+        "timeEncoder": "",
+        "durationEncoder": "",
+        "callerEncoder": ""
+      }
+    }
+kind: ConfigMap
+metadata:
+  name: config-logging
+  namespace: knative-build-pipeline
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: build-pipeline-controller
+  namespace: knative-build-pipeline
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: build-pipeline-controller
+    spec:
+      containers:
+      - args:
+        - -logtostderr
+        - -stderrthreshold
+        - INFO
+        - -kubeconfig-writer-image
+        - gcr.io/knative-nightly/github.com/knative/build-pipeline/cmd/kubeconfigwriter@sha256:18bed30c9aa5d2eb06d09528233e57ed1cdddbc19e77525799411d0cb4eeba0b
+        - -creds-image
+        - gcr.io/knative-nightly/github.com/knative/build-pipeline/cmd/creds-init@sha256:24c731e39b19c33ec7f884fc7691133ddd7f4f728e93eb2d051896fc4409de0d
+        - -git-image
+        - gcr.io/knative-nightly/github.com/knative/build-pipeline/cmd/git-init@sha256:c0ca3c84c944f132d68947928d2ef4cb321b1bc8ae62372ac0cd9194a8d5369a
+        - -nop-image
+        - gcr.io/knative-nightly/github.com/knative/build-pipeline/cmd/nop@sha256:2cad0cc76a62f59eed58f468c86b6e4a09511e9dc3d69310e6b11e1327166b02
+        - -bash-noop-image
+        - gcr.io/knative-nightly/github.com/knative/build-pipeline/cmd/bash@sha256:640f6c26a75fc2c543ace1ac418fbb7409d529a4d294139d9bb6197d3fd4e172
+        - -gsutil-image
+        - gcr.io/knative-nightly/github.com/knative/build-pipeline/cmd/gsutil@sha256:e1e24f5963bed9043214ea4a5d4b328132c275734f6059f40d818b3520c7fb5d
+        image: gcr.io/knative-nightly/github.com/knative/build-pipeline/cmd/controller@sha256:3aaf7aced83dd5237eca3eb35306e9df99088e683f5dd4f3803dcf0ee3355747
+        name: build-pipeline-controller
+        volumeMounts:
+        - mountPath: /etc/config-logging
+          name: config-logging
+      serviceAccountName: build-pipeline-controller
+      volumes:
+      - configMap:
+          name: config-logging
+        name: config-logging
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: build-pipeline-webhook
+  namespace: knative-build-pipeline
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: build-pipeline-webhook
+    spec:
+      containers:
+      - image: gcr.io/knative-nightly/github.com/knative/build-pipeline/cmd/webhook@sha256:72ce01a2fa149aadfc9e539b8aa0eb6938fdf096953c3041972368aaa505a41e
+        name: webhook
+        volumeMounts:
+        - mountPath: /etc/config-logging
+          name: config-logging
+      serviceAccountName: build-pipeline-controller
+      volumes:
+      - configMap:
+          name: config-logging
+        name: config-logging
