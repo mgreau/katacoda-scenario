@@ -2,17 +2,8 @@
 set -e
 
 # Download Elastic docker images
-function warmUp()
-{
-  TAG=6.5.4
-  for REPONAME in elasticsearch/elasticsearch kibana/kibana beats/filebeat beats/metricbeat
-  do
-      IMAGENAME=$(basename $REPONAME)
-      echo "Download elastic/${IMAGENAME}:${TAG}"
-      docker pull docker.elastic.co/${REPONAME}:${TAG}
-  done
-}
-
-warmUp()
-source <(kubectl completion bash)
-clear
+TAG=6.5.4
+docker pull docker.elastic.co/elasticsearch/elasticsearch:${TAG}
+docker pull docker.elastic.co/kibana/kibana:${TAG}
+docker pull docker.elastic.co/beats/filebeat:${TAG}
+docker pull docker.elastic.co/beats/metricbeat:${TAG}
