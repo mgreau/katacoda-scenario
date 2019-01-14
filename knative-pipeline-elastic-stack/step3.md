@@ -1,6 +1,14 @@
 ## Check Knative Logs and Metrics
 
-Access to the  [Kibana UI](https://[[HOST_SUBDOMAIN]]-30601-[[KATACODA_HOST]].environments.katacoda.com/)
+Make sure the Kibana pod is running:
+
+`kubectl get pods --watch --namespace=default`{{execute}}
+
+```
+kibana-897c7d55c-rgs74                1/1       Running   0          6m
+```
+
+Then, go to the  [Kibana UI](https://[[HOST_SUBDOMAIN]]-30601-[[KATACODA_HOST]].environments.katacoda.com/) to get access to the logs and metrics:
 
 * Click on the Infrastructure menu
 * Click on `Kubernetes`

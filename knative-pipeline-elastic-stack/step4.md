@@ -1,6 +1,6 @@
 ## Deploy and Run a Task
 
-This is an example from the 
+This is an example from the build-pipeline GitHub repository
 
 ### Deploy
 

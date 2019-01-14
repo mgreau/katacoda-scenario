@@ -4,16 +4,21 @@
   "details": {
     "steps": [
       {
-        "title": "Step 1",
+        "title": "Elastic Stack",
         "text": "step1.md"
       },
       {
-        "title": "Step 2",
+        "title": "Knative Pipeline",
         "text": "step2.md"
       },
       {
-        "title": "Step 3",
+        "title": "Kibana UI",
         "text": "step3.md"
+      }
+      ,
+      {
+        "title": "Run pipeline",
+        "text": "step4.md"
       }
     ],
     "intro": {
