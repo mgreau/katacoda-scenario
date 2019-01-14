@@ -1,5 +1,9 @@
 # Install Elastic Components #
 
+In this step, you will deploy the Elastic components used to monitor your cluster:
+* Elasticsearch
+* Kibana
+* Filebeat and Metricsbeat
 
 ## Deploy Elasticsearch
 
@@ -16,11 +20,9 @@
 
 `kubectl apply -f https://raw.githubusercontent.com/mgreau/katacoda-scenarios/master/knative-pipeline-elastic-stack/assets/elastic/metricbeat.yaml`{{execute}}
 
-## Wait for the Kibana to be running
 
-Access to the  [Kibana UI](https://[[HOST_SUBDOMAIN]]-30601-[[KATACODA_HOST]].environments.katacoda.com/)
+## Check pods
 
+`kubectl get pods --watch --namespace=default`{{execute}}
 
-## Install Knative Pipeline
-
-`kubectl apply -f https://raw.githubusercontent.com/mgreau/katacoda-scenarios/master/knative-pipeline-elastic-stack/assets/knative/knative-pipeline-release-050118.yaml`{{execute}}
+Go to the next step while the Elastic components are starting
