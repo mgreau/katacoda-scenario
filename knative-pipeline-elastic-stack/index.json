@@ -47,6 +47,6 @@
     ]
   },
   "backend": {
-    "imageid": "kubernetes-running"
+    "imageid": "kubernetes"
   }
 }
