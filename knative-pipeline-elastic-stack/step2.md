@@ -9,6 +9,6 @@ Pipeline will replace Knative Build.
 
 Check that Knative Pipeline pods are running:
 
-`kubectl get pods --namespace=knative-build-pipeline`{{execute Elastic Pods}}
+`kubectl get pods --namespace=knative-build-pipeline`{{execute T3}}
 
 Follow the pods step y using the `Knative Pods` tab.

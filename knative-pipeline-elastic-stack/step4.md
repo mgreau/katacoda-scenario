@@ -1,12 +1,24 @@
-## Deploy and Run a Task
+## Hello World Task
 
-This is an example from the build-pipeline GitHub repository
+This is the Hello World example from the build-pipeline GitHub repository.
 
-### Deploy Resources and Tasks and Pipeline
+### Create Task and TaskRun
 
-#### Resources (git)
+<pre class="file" data-filename="task.yaml" data-target="replace">
+apiVersion: pipeline.knative.dev/v1alpha1
+kind: Task
+metadata:
+  name: echo-hello-world
+spec:
+  steps:
+    - name: echo
+      image: ubuntu
+      command:
+        - echo
+      args:
+        - "hello world"
+</pre>
 
-`kubectl apply -f https://raw.githubusercontent.com/knative/build-pipeline/master/examples/resources.yaml`{{execute}}
 
 #### Tasks
 
