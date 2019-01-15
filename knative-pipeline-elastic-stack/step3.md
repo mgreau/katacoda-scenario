@@ -1,12 +1,13 @@
-## Check Knative Logs and Metrics
+## Observe Knative Logs and Metrics
 
 Make sure the Kibana pod is running:
 
-`kubectl get pods --watch --namespace=default`{{execute}}
+`kubectl get pods --namespace=default`{{execute}}
 
 ```
 kibana-897c7d55c-rgs74                1/1       Running   0          6m
 ```
+Check the state using the `Elastic Pods` tab.
 
 Then, go to the [Kibana Infrastructure UI](https://[[HOST_SUBDOMAIN]]-30601-[[KATACODA_HOST]].environments.katacoda.com/app/infra#/home?_g=()&waffleOptions=(groupBy:!((field:kubernetes.namespace,type:terms)),metric:(type:cpu),nodeType:pod)) to get access to the logs and metrics:
 

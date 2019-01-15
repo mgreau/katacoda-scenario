@@ -25,4 +25,6 @@ In this step, you will deploy the Elastic components used to monitor your cluste
 
 `kubectl get pods --namespace=default`{{execute}}
 
+Follow the pods step y using the `Elastic Pods` tab.
+
 Go to the next step while the Elastic components are starting

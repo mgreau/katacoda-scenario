@@ -38,9 +38,8 @@
     "dashboards": [
       {"name": "UI - Kibana Infrastructure", "href": "https://[[HOST_SUBDOMAIN]]-80-[[KATACODA_HOST]].environments.katacoda.com"}],
   "terminals": [
-      {"name": "Terminal", "target": "host01"},
-      {"name": "Elastic Pods", "command": "kubectl get pods --namespace=default", "target": "host01"},
-      {"name": "Knative Pods", "command": "kubectl get pods --namespace=knative-build-pipeline", "target": "host01"}
+      {"name": "Elastic Pods", "command": "kubectl get pods --watch --namespace=default"},
+      {"name": "Knative Pods", "command": "kubectl get pods --watch --namespace=knative-build-pipeline"}
     ]
   },
   "backend": {
