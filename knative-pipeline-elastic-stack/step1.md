@@ -7,6 +7,8 @@ In this step, you will deploy the Elastic components used to monitor your cluste
 
 ## Deploy Elasticsearch
 
+![Elasticsearch Logo](/katacoda-scenarios/scenarios/knative-pipeline-elastic-stack/assets/elastic/img/icon-elasticsearch-bb.svg)
+
 `kubectl apply -f https://raw.githubusercontent.com/mgreau/katacoda-scenarios/master/knative-pipeline-elastic-stack/assets/elastic/elasticsearch.yaml`{{execute}}
 
 ## Deploy Kibana
@@ -23,7 +25,7 @@ In this step, you will deploy the Elastic components used to monitor your cluste
 
 ## Check pods
 
-`kubectl get pods --namespace=default`{{execute}}
+`kubectl get pods --watch --namespace=default`{{execute}}
 
 Follow the pods step y using the `Elastic Pods` tab.
 

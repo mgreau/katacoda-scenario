@@ -17,7 +17,7 @@
       }
       ,
       {
-        "title": "Run pipeline",
+        "title": "Hello World Task",
         "text": "step4.md"
       }
     ],
@@ -31,7 +31,8 @@
     }
   },
   "environment": {
-    "uilayout": "terminal",
+    "uilayout": "editor-terminal",
+    "uisettings": "javascript",
     "uimessage1": "\u001b[32mKnative/Elastic Interactive Hands On Lab Terminal\u001b[m\r\n",
     "icon": "fa-kubernetes",
     "showdashboard": true,
