@@ -30,11 +30,9 @@ In this step, you will deploy the Elastic components used to monitor your cluste
 
 `kubectl apply -f https://raw.githubusercontent.com/mgreau/katacoda-scenarios/master/knative-pipeline-elastic-stack/assets/elastic/filebeat.yaml`{{execute T1}}
 
-### Metricbeat: Lightweight Shipper for Metrics
+### Metricbeat
 
 ![Metricbeat Logo](https://www.elastic.co/assets/blt6263e629ff423e0d/icon-metricbeat-bb.svg)
-
-[Metricbeat](https://www.elastic.co/products/beats/filebeat)
 
 `kubectl apply -f https://raw.githubusercontent.com/mgreau/katacoda-scenarios/master/knative-pipeline-elastic-stack/assets/elastic/metricbeat.yaml`{{execute T1}}
 
