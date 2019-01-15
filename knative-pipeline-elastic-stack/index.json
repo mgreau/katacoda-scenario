@@ -30,6 +30,9 @@
       "text": "finish.md"
     }
   },
+  "files": [
+    "task.yaml", "task-run.yaml"
+  ],
   "environment": {
     "uilayout": "editor-terminal",
     "uisettings": "javascript",
@@ -44,6 +47,6 @@
     ]
   },
   "backend": {
-    "imageid": "kubernetes-cluster-running"
+    "imageid": "kubernetes-running"
   }
 }
