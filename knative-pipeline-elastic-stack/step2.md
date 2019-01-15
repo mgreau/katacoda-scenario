@@ -3,7 +3,7 @@
 Knative Pipeline is one component of the Knative project.
 Pipeline will replace Knative Build.
 
-`kubectl apply -f https://raw.githubusercontent.com/mgreau/katacoda-scenarios/master/knative-pipeline-elastic-stack/assets/knative/knative-pipeline-release-050118.yaml`{{execute}}
+`kubectl apply -f https://raw.githubusercontent.com/mgreau/katacoda-scenarios/master/knative-pipeline-elastic-stack/assets/knative/knative-pipeline-release-150118.yaml`{{execute}}
 
 ## Check pods
 
