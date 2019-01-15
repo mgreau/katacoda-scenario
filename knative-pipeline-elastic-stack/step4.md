@@ -4,6 +4,8 @@ This is the Hello World example from the build-pipeline GitHub repository.
 
 ### Create Task and TaskRun
 
+* Create the Task
+** Copy the content to the file
 <pre class="file" data-filename="task.yaml" data-target="replace">
 apiVersion: pipeline.knative.dev/v1alpha1
 kind: Task
@@ -16,22 +18,28 @@ spec:
       command:
         - echo
       args:
-        - "hello world"
+        - "Hello World!"
 </pre>
 
+`kubectl apply -f ./hello-world-task/task.yaml`{{execute T1}}
 
-#### Tasks
+* Create the TaskRun
 
-`kubectl apply -f https://raw.githubusercontent.com/knative/build-pipeline/master/examples/output-tasks.yaml`{{execute}}
+<pre class="file" data-filename="task-run.yaml" data-target="replace">
+apiVersion: pipeline.knative.dev/v1alpha1
+kind: TaskRun
+metadata:
+  name: echo-hello-world-task-run
+spec:
+  taskRef:
+    name: echo-hello-world
+  trigger:
+    type: manual
+</pre>
 
-#### Pipeline
+`kubectl apply -f ./hello-world-task/task-run.yaml`{{execute T1}}
 
-`kubectl apply -f https://raw.githubusercontent.com/knative/build-pipeline/master/examples/output-pipeline.yaml`{{execute}}
+### Get access to the logs from the UI with Kibana
 
-### Run the pipeline
-
-`kubectl apply -f https://raw.githubusercontent.com/knative/build-pipeline/master/examples/run/output-pipeline-run.yaml`{{execute}}
-
-### Get access to the logs and metrics from the UI with Kibana
-
-[Kibana - Infrastructure](https://[[HOST_SUBDOMAIN]]-30601-[[KATACODA_HOST]].environments.katacoda.com/app/infra#/home?_g=()&waffleOptions=(groupBy:!(),metric:(type:cpu),nodeType:pod))
+Kibana - Infrastructure:
+* https://[[HOST_SUBDOMAIN]]-30601-[[KATACODA_HOST]].environments.katacoda.com/app/infra#/home?_g=()&waffleOptions=(groupBy:!(),metric:(type:cpu),nodeType:pod)
