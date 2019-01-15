@@ -13,12 +13,12 @@ metadata:
   name: echo-hello-world
 spec:
   steps:
-    - name: echo
-      image: ubuntu
-      command:
-        - echo
-      args:
-        - "Hello World!"
+  - name: echo
+    image: ubuntu
+    command:
+      - echo
+    args:
+      - "Hello World!"
 </pre>
 
 * Create the TaskRun
