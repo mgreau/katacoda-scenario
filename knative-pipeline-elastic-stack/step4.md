@@ -6,7 +6,7 @@ This is the Hello World example from the build-pipeline GitHub repository.
 
 * Create the Task
 ** Copy the content to the file
-<pre class="file" data-filename="./hello-world-task/task.yaml" data-target="replace">
+<pre class="file" data-filename="./hello-world-task/01-task.yaml" data-target="replace">
 apiVersion: pipeline.knative.dev/v1alpha1
 kind: Task
 metadata:
@@ -23,7 +23,7 @@ spec:
 
 * Create the TaskRun
 
-<pre class="file" data-filename="./hello-world-task/task-run.yaml" data-target="replace">
+<pre class="file" data-filename="./hello-world-task/02-task-run.yaml" data-target="replace">
 apiVersion: pipeline.knative.dev/v1alpha1
 kind: TaskRun
 metadata:

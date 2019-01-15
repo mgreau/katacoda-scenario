@@ -9,8 +9,8 @@ kubectl apply -f  https://raw.githubusercontent.com/mgreau/katacoda-scenarios/ma
 
 # Create files for tutorial
 mkdir -p hello-world-task
-touch hello-world-task/task.yaml
-touch hello-world-task/task-run.yaml
+touch hello-world-task/01-task.yaml
+touch hello-world-task/02-task-run.yaml
 
 # Download Elastic docker images
 TAG=6.5.4
