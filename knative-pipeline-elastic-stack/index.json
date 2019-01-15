@@ -32,7 +32,7 @@
     }
   },
   "files": [
-    "task.yaml", "task-run.yaml"
+    "./hello-world-task/01-task.yaml", "./hello-world-task/02-task-run.yaml"
   ],
   "environment": {
     "uilayout": "editor-terminal",
