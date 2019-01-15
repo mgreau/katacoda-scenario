@@ -21,11 +21,9 @@ spec:
         - "Hello World!"
 </pre>
 
-`kubectl apply -f ./hello-world-task/task.yaml`{{execute T1}}
-
 * Create the TaskRun
 
-<pre class="file" data-filename="task-run.yaml" data-target="replace">
+<pre class="file" data-filename="./hello-world-task/task-run.yaml" data-target="replace">
 apiVersion: pipeline.knative.dev/v1alpha1
 kind: TaskRun
 metadata:
@@ -37,7 +35,9 @@ spec:
     type: manual
 </pre>
 
-`kubectl apply -f ./hello-world-task/task-run.yaml`{{execute T1}}
+* Apply 
+
+`kubectl apply -f ./hello-world-task`{{execute T1}}
 
 ### Get access to the logs from the UI with Kibana
 
