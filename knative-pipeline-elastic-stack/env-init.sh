@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+# Start Kubernetes
+launch.sh
+
 # Deploy kube-state-metrics
 kubectl apply -f  https://raw.githubusercontent.com/mgreau/katacoda-scenarios/master/knative-pipeline-elastic-stack/assets/k8s/kube-state-metrics.yaml
 
