@@ -31,6 +31,9 @@
       "text": "finish.md"
     }
   },
+  "assets": {
+    "host01": [{"file": "*", "target": "/root"}]
+  },
   "files": [
     "./hello-world-task/01-task.yaml", "./hello-world-task/02-task-run.yaml"
   ],
