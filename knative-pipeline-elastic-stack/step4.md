@@ -10,15 +10,15 @@ This is the Hello World example from the build-pipeline GitHub repository.
 apiVersion: pipeline.knative.dev/v1alpha1
 kind: Task
 metadata:
-  name: echo-hello-world
+    name: echo-hello-world
 spec:
-  steps:
-  - name: echo
-    image: ubuntu
-    command:
-      - echo
-    args:
-      - "Hello World!"
+    steps:
+    - name: echo
+      image: ubuntu
+      command:
+        - echo
+      args:
+        - "Hello World!"
 </pre>
 
 * Create the TaskRun
