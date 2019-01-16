@@ -24,15 +24,12 @@
     "intro": {
       "text": "intro.md",
       "courseData": "env-init.sh",
-      "code": "start-k8s.sh",
+      "code": "start.sh",
       "credits": "[@mgreau](https://www.github.com/mgreau)"
     },
     "finish": {
       "text": "finish.md"
     }
-  },
-  "assets": {
-    "host01": [{"file": "*", "target": "/root"}]
   },
   "files": [
     "./hello-world-task/01-task.yaml", "./hello-world-task/02-task-run.yaml"
